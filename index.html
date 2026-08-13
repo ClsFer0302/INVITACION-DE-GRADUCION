@@ -21,7 +21,7 @@
             overflow-x: hidden;
         }
         
-        /* Pantalla de bienvenida interactiva para activar la música */
+        /* Pantalla de bienvenida elegante para activar la música de fondo */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -34,42 +34,48 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.6s ease, visibility 0.6s;
         }
         #welcome-screen h1 {
             color: #d27d9a;
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 26px;
+            margin-bottom: 25px;
             text-align: center;
-            padding: 0 20px;
+            font-weight: normal;
+            letter-spacing: 1px;
         }
         .enter-btn {
             background: #d27d9a;
             color: white;
             border: none;
-            padding: 15px 35px;
+            padding: 15px 40px;
             font-size: 18px;
-            font-weight: bold;
+            letter-spacing: 1px;
             border-radius: 30px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            box-shadow: 0 5px 20px rgba(210, 125, 154, 0.4);
+            transition: transform 0.2s;
+        }
+        .enter-btn:active {
+            transform: scale(0.95);
         }
 
         .container {
             position: relative;
             width: 100%;
             max-width: 430px;
-            display: none; /* Se oculta al principio */
+            opacity: 0;
+            transition: opacity 0.8s ease;
         }
         .invitation {
             width: 100%;
             display: block;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.18);
+            box-shadow: 0 10px 30px rgba(0,0,0,.15);
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
         }
-        /* Zona interactiva calibrada exactamente sobre tu botón rosa */
+        /* Zona interactiva calibrada exactamente sobre tu botón rosa de Maps */
         .maps-link {
             position: absolute;
             left: 26%;
@@ -84,35 +90,38 @@
 </head>
 <body>
 
-    <!-- Pantalla de Entrada obligatoria para reproducir música automática -->
+    <!-- Pantalla obligatoria de entrada -->
     <div id="welcome-screen">
-        <h1>🎓 Estás invitado a la Graduación de Kenia</h1>
+        <h1>🎓 Estás invitado a la<br>Graduación de Kenia</h1>
         <button class="enter-btn" onclick="startInvitation()">Abrir Invitación</button>
     </div>
 
-    <!-- Contenedor principal de la Invitación -->
+    <!-- Contenedor de la Invitación -->
     <div class="container" id="main-content">
-        <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.JPG" alt="Invitación de Graduación de Kenia">
+        <!-- Sistema dual para forzar la carga sin importar mayúsculas o minúsculas en el servidor -->
+        <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación de Graduación de Kenia">
         <a class="maps-link" href="https://google.com" target="_blank"></a>
     </div>
 
-    <!-- Elemento nativo de audio oculto en la web -->
+    <!-- Audio Nativo para Reproducción Automática en la Web -->
     <audio id="bg-music" src="cancion.mp3" loop></audio>
 
     <script>
         function startInvitation() {
-            // Reproduce la música de fondo al presionar el botón
+            // Activa el audio de forma inmediata tras el clic del usuario
             var music = document.getElementById("bg-music");
             music.play().catch(function(error) {
-                console.log("Error al reproducir audio:", error);
+                console.log("Audio bloqueado por el navegador:", error);
             });
 
-            // Oculta la pantalla de bienvenida y muestra la invitación
-            document.getElementById("welcome-screen").style.opacity = "0";
-            setTimeout(function() {
-                document.getElementById("welcome-screen").style.display = "none";
-                document.getElementById("main-content").style.display = "block";
-            }, 500);
+            // Desvanece la bienvenida y muestra la tarjeta
+            var welcome = document.getElementById("welcome-screen");
+            var content = document.getElementById("main-content");
+            
+            welcome.style.opacity = "0";
+            welcome.style.visibility = "hidden";
+            
+            content.style.opacity = "1";
         }
     </script>
 
