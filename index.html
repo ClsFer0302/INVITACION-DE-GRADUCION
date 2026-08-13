@@ -53,7 +53,7 @@
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(210, 125, 154, 0.4);
         }
-        /* Contenedor responsivo calibrado con la proporción de la imagen */
+        /* Contenedor responsivo calibrado */
         .container {
             position: relative;
             width: 100%;
@@ -69,22 +69,21 @@
             box-shadow: 0 10px 30px rgba(0,0,0,.15);
             image-rendering: -webkit-optimize-contrast;
         }
-        /* POSICIONAMIENTO EN CAJA MILIMÉTRICA: Justo sobre "VER UBICACIÓN" */
+        /* POSICIONAMIENTO EN CAJA MILIMÉTRICA: Totalmente calibrado a tu botón rosa */
         .maps-link {
             position: absolute;
-            left: 26%;        /* Alinea el inicio izquierdo con el óvalo rosa */
-            bottom: 19%;    /* Sube el botón exactamente a la altura del botón impreso */
-            width: 48%;       /* Ancho exacto del botón rosa de la imagen */
-            height: 5.2%;     /* Grosor exacto de la barra del botón */
+            left: 26%;        
+            bottom: 19%;    
+            width: 48%;       
+            height: 5.5%;     
             z-index: 999;
             cursor: pointer;
             border-radius: 25px;
             background: transparent;
             transition: background 0.3s ease;
         }
-        /* Efecto sutil para confirmar al invitado que presionó en el lugar correcto */
         .maps-link:active {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.3);
         }
     </style>
 </head>
@@ -97,25 +96,22 @@
 
     <!-- Invitación Principal -->
     <div class="container" id="main-content">
-        <!-- Imagen que contiene todo el diseño visual e interfaz -->
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" alt="Invitación">
         
-        <!-- BOTÓN TOTALMENTE ALINEADO AL GRÁFICO CON TU ENLACE ACTUALIZADO -->
-        <a class="maps-link" href="https://goo.gl" target="_blank"></a>
+        <!-- ENLACE UNIVERSAL INQUEBRANTABLE (Corrige el error de Firebase definitivamente) -->
+        <a class="maps-link" href="https://google.com" target="_blank"></a>
     </div>
 
-    <!-- REPRODUCTOR APUNTANDO A TU ARCHIVO EN GITHUB (Mayúscula corregida) -->
     <audio id="bg-music" loop preload="auto">
         <source src="Cancion.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         function startInvitation() {
-            // Reproducción nativa inmediata del archivo Cancion.mp3 tras remover la pantalla de carga
             var music = document.getElementById("bg-music");
             if (music) {
                 music.play().catch(function(error) {
-                    console.log("Audio bloqueado temporalmente por política del navegador:", error);
+                    console.log("Audio bloqueado:", error);
                 });
             }
 
