@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduación de Kenia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #fdf2f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 430px;
+        }
+        .invitation {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
+        }
+        /* Zona clicable sobre el botón del mapa */
+        .maps-link {
+            position: absolute;
+            left: 25%;
+            top: 63%;
+            width: 50%;
+            height: 7%;
+            z-index: 20;
+            /* Opcional: añade un cursor de mano para notar que es un enlace */
+            cursor: pointer; 
+        }
+        .spotify-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: #1DB954;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 12px 18px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,.25);
+            z-index: 30;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- CORRECCIÓN: Se cambió el texto plano por la etiqueta <img> -->
+        <img class="invitation" src="invitation.jpg" alt="Invitación de Graduación de Kenia">
+        
+        <!-- Enlace invisible encima de la imagen -->
+        <a class="maps-link" href="https://www.google.com/maps/place/Fernando+Montes+de+Oca+17,+San+Rafael+Chamapa+Cuarta+Secc,+53680+Naucalpan+de+Ju%C3%A1rez,+M%C3%A9x./@19.4473867,-99.2754054,17z/data=!3m1!4b1!4m6!3m5!1s0x85d203f37c3e89dd:0x5ded22ce0e7215c8!8m2!3d19.4473817!4d-99.2728305!16s%2Fg%2F11cp8_425_!18m1!1e1?entry=ttu" target="_blank"></a>
+    </div>
+
+    <!-- Botón flotante de Spotify -->
+    <a class="spotify-btn" href="https://open.spotify.com/intl-es/track/0GjEhVFGZW8afUYGChu3Rr" target="_blank">
+        🎵 Dancing Queen
+    </a>
+
+</body>
+</html>
