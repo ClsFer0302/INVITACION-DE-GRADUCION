@@ -113,11 +113,7 @@
             transition: background 0.3s ease;
         }
         .maps-link:active {
-            background: rgba(210, 125, 154, 0.1); /* Efecto visual al presionar en celular */
-        }
-        /* Ocultar por completo el reproductor de YouTube */
-        #youtube-player {
-            display: none;
+            background: rgba(210, 125, 154, 0.1);
         }
     </style>
 </head>
@@ -140,34 +136,16 @@
             <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Seg</span></div>
         </div>
 
-        <!-- CORRECCIÓN DEL MAPA CON API OFICIAL DE GOOGLE MAPS -->
+        <!-- ENLACE DE MAPAS OPTIMIZADO (Abre la App de Google Maps directamente) -->
         <a class="maps-link" href="https://google.com" target="_blank"></a>
     </div>
 
-    <!-- Contenedor oculto del reproductor de YouTube -->
-    <div id="youtube-player"></div>
+    <!-- AUDIO VINCULADO A TU ARCHIVO LOCAL EN GITHUB -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        // Cargar asíncronamente la API de Iframe de YouTube
-        var tag = document.createElement('script');
-        tag.src = "https://youtube.com";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
-                videoId: 'xFrGuyw1V8s', // ID extraído de tu link de ABBA
-                playerVars: {
-                    'autoplay': 0,
-                    'loop': 1,
-                    'playlist': 'xFrGuyw1V8s' // Requerido por YouTube para repetir indefinidamente
-                }
-            });
-        }
-
         // CONFIGURACIÓN DE LA FECHA DEL EVENTO: 6 de Septiembre a las 3:00 PM (15:00 hrs)
         const eventDate = new Date("September 6, 2026 15:00:00").getTime();
 
@@ -195,9 +173,12 @@
         setInterval(updateCountdown, 1000);
 
         function startInvitation() {
-            // Reproducir música desde YouTube de forma segura tras la interacción
-            if (player && typeof player.playVideo === 'function') {
-                player.playVideo();
+            // Reproducir el archivo local cancion.mp3 de forma nativa
+            var music = document.getElementById("bg-music");
+            if (music) {
+                music.play().catch(function(error) {
+                    console.log("Error al reproducir audio:", error);
+                });
             }
 
             var welcome = document.getElementById("welcome-screen");
@@ -206,7 +187,6 @@
             welcome.style.visibility = "hidden";
             content.style.opacity = "1";
             
-            // Iniciar contador inmediatamente al abrir
             updateCountdown();
         }
     </script>
