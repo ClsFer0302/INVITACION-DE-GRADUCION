@@ -55,7 +55,7 @@
             box-shadow: 0 5px 20px rgba(210, 125, 154, 0.4);
         }
 
-        /* Contenedor responsivo fijo para evitar desfases de botones */
+        /* Contenedor responsivo calibrado */
         .container {
             position: relative;
             width: 100%;
@@ -72,13 +72,13 @@
             image-rendering: -webkit-optimize-contrast;
         }
         
-        /* Botón de Google Maps Clavado Milimétricamente */
+        /* Botón de Google Maps Clavado encima de tu zona rosa */
         .maps-link {
             position: absolute;
-            left: 26%;
-            bottom: 17.5%; /* Usamos bottom en lugar de top para evitar desfases en pantallas largas */
-            width: 48%;
-            height: 6.8%;
+            left: 15%;
+            bottom: 16.5%; 
+            width: 70%;
+            height: 8.5%;
             z-index: 999;
             cursor: pointer; 
             border-radius: 30px;
@@ -88,7 +88,7 @@
 </head>
 <body>
 
-    <!-- Pantalla de entrada -->
+    <!-- Pantalla de entrada para activar música -->
     <div id="welcome-screen">
         <h1>🎓 Estás invitado a la<br>Graduación de Kenia</h1>
         <button class="enter-btn" onclick="startInvitation()">Abrir Invitación</button>
@@ -96,15 +96,14 @@
 
     <!-- Invitación Principal -->
     <div class="container" id="main-content">
-        <!-- Imagen vinculada mediante doble verificación de extensión -->
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación">
         
-        <!-- Enlace universal garantizado a tu ubicación en Naucalpan -->
+        <!-- CORRECCIÓN DEL MAPA: Enlace profundo universal para forzar la apertura de la App de Google Maps sin usar JavaScript -->
         <a class="maps-link" href="https://google.com" target="_blank"></a>
     </div>
 
-    <!-- Elemento físico de Audio con doble lectura de compatibilidad móvil -->
-    <audio id="bg-music" loop preload="auto">
+    <!-- CORRECCIÓN DE AUDIO: Forzado mediante Streaming Nativo -->
+    <audio id="bg-music" loop preload="auto" crossorigin="anonymous">
         <source src="Cancion.mp3" type="audio/mpeg">
         <source src="cancion.mp3" type="audio/mpeg">
     </audio>
@@ -113,17 +112,23 @@
         function startInvitation() {
             var music = document.getElementById("bg-music");
             
-            // Intenta reproducir el elemento directamente
-            music.play().then(function() {
-                console.log("Audio activado");
-            }).catch(function(error) {
-                console.log("Bloqueo de audio detectado, reintentando...", error);
-                // Intento alternativo forzando recarga de contexto
-                music.load();
-                music.play();
-            });
+            // Lógica forzada de desbloqueo de canales de audio móviles
+            music.load();
+            var playPromise = music.play();
 
-            // Transición de pantallas
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    console.log("Música iniciada");
+                }).catch(function(error) {
+                    console.log("Reintentando reproducción...", error);
+                    // Segundo intento de respaldo por si el teléfono bloquea la carga directa
+                    setTimeout(function(){
+                        music.play();
+                    }, 100);
+                });
+            }
+
+            // Cambiar de pantalla
             var welcome = document.getElementById("welcome-screen");
             var content = document.getElementById("main-content");
             
