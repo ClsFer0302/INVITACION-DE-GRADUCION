@@ -21,7 +21,7 @@
             overflow-x: hidden;
         }
         
-        /* Pantalla de bienvenida elegante para activar la música de fondo */
+        /* Pantalla de interacción para habilitar el audio de fondo */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -75,13 +75,13 @@
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
         }
-        /* Zona interactiva calibrada exactamente sobre tu botón rosa de Maps */
+        /* Zona interactiva alineada al botón de ubicación */
         .maps-link {
             position: absolute;
-            left: 20%;
-            top: 75%;
-            width: 60%;
-            height: 8%;
+            left: 10%;
+            top: 74%;
+            width: 80%;
+            height: 9%;
             z-index: 20;
             cursor: pointer; 
             border-radius: 30px;
@@ -90,38 +90,40 @@
 </head>
 <body>
 
-    <!-- Pantalla obligatoria de entrada -->
+    <!-- Pantalla de Entrada Interactiva -->
     <div id="welcome-screen">
         <h1>🎓 Estás invitado a la<br>Graduación de Kenia</h1>
         <button class="enter-btn" onclick="startInvitation()">Abrir Invitación</button>
     </div>
 
-    <!-- Contenedor de la Invitación -->
+    <!-- Contenedor Principal de la Invitación -->
     <div class="container" id="main-content">
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación de Graduación de Kenia">
-        <!-- CORRECCIÓN CRÍTICA: Enlace oficial limpio de Google Maps para San Rafael Chamapa -->
-        <a class="maps-link" href="https://goo.gl" target="_blank"></a>
+        <!-- URL de Maps corregida y depurada para redirección a San Rafael Chamapa -->
+        <a class="maps-link" href="https://google.com" target="_blank"></a>
     </div>
 
-    <!-- Audio Nativo para Reproducción Automática con precarga forzada -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="cancion.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
+        // Inicialización del objeto global de audio para evitar bloqueos en smartphones
+        var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        var backgroundMusic = new Audio('cancion.mp3');
+        backgroundMusic.loop = true;
+
         function startInvitation() {
-            var music = document.getElementById("bg-music");
-            music.play().catch(function(error) {
-                console.log("Audio bloqueado por el navegador:", error);
+            // Desbloqueo del hilo de audio del navegador tras acción de usuario
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            
+            backgroundMusic.play().catch(function(error) {
+                console.log("Control de reproducción bloqueado:", error);
             });
 
-            // Desvanece la bienvenida y muestra la tarjeta
             var welcome = document.getElementById("welcome-screen");
             var content = document.getElementById("main-content");
             
             welcome.style.opacity = "0";
             welcome.style.visibility = "hidden";
-            
             content.style.opacity = "1";
         }
     </script>
