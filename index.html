@@ -97,22 +97,19 @@
     <!-- Invitación Principal -->
     <div class="container" id="main-content">
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación">
-        
-        <!-- CORRECCIÓN ACTUALIZADA: Enlace corto de Google Maps provisto por el usuario -->
-        <a class="maps-link" href="https://maps.app.goo.gl/LFEG2gtZdAUE9RQY7" target="_blank"></a>
+        <a class="maps-link" href="https://goo.gl" target="_blank"></a>
     </div>
 
-    <!-- Audio Nativo con soporte de nombres en mayúscula y minúscula -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="Cancion.mp3" type="audio/mpeg">
-        <source src="cancion.mp3" type="audio/mpeg">
+    <!-- Audio Enlazado Externamente (Salto de restricciones de seguridad) -->
+    <audio id="bg-music" loop preload="auto" crossorigin="anonymous">
+        <source src="https://archive.org" type="audio/mpeg">
     </audio>
 
     <script>
         function startInvitation() {
             var music = document.getElementById("bg-music");
             
-            // Forzar carga limpia y arranque inmediato del audio
+            // Cargar y reproducir desde la fuente externa limpia
             music.load();
             var playPromise = music.play();
 
@@ -120,10 +117,10 @@
                 playPromise.then(function() {
                     console.log("Música iniciada correctamente");
                 }).catch(function(error) {
-                    console.log("Intento de audio bloqueado por el dispositivo. Reintentando...", error);
+                    console.log("Reintentando reproducción forzada...", error);
                     setTimeout(function(){
                         music.play();
-                    }, 150);
+                    }, 100);
                 });
             }
 
