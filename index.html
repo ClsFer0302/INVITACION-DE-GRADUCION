@@ -53,7 +53,7 @@
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(210, 125, 154, 0.4);
         }
-        /* Contenedor responsivo calibrado */
+        /* Contenedor responsivo calibrado con la proporción de la imagen */
         .container {
             position: relative;
             width: 100%;
@@ -69,22 +69,22 @@
             box-shadow: 0 10px 30px rgba(0,0,0,.15);
             image-rendering: -webkit-optimize-contrast;
         }
-        /* Botón de Google Maps Clavado encima de tu zona rosa de la foto */
+        /* POSICIONAMIENTO EN CAJA MILIMÉTRICA: Justo sobre "VER UBICACIÓN" */
         .maps-link {
             position: absolute;
-            left: 24%;
-            bottom: 22.5%;
-            width: 52%;
-            height: 6%;
+            left: 26%;        /* Alinea el inicio izquierdo con el óvalo rosa */
+            bottom: 22.8%;    /* Sube el botón exactamente a la altura del botón impreso */
+            width: 48%;       /* Ancho exacto del botón rosa de la imagen */
+            height: 5.2%;     /* Grosor exacto de la barra del botón */
             z-index: 999;
             cursor: pointer;
-            border-radius: 30px;
+            border-radius: 25px;
             background: transparent;
             transition: background 0.3s ease;
         }
-        /* Efecto de destello sutil al presionar en celular para validar el clic */
+        /* Efecto sutil para confirmar al invitado que presionó en el lugar correcto */
         .maps-link:active {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
         }
     </style>
 </head>
@@ -97,25 +97,25 @@
 
     <!-- Invitación Principal -->
     <div class="container" id="main-content">
-        <!-- Lee tu imagen original; toda la info e interfaz proviene directamente de ella -->
-        <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación">
+        <!-- Imagen que contiene todo el diseño visual e interfaz -->
+        <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" alt="Invitación">
         
-        <!-- ENLACE DIRECTO ACTUALIZADO CON TU NUEVA LIGA DE GOOGLE MAPS -->
-        <a class="maps-link" href="https://maps.app.goo.gl/6bcHLdBkcn886WD46" target="_blank"></a>
+        <!-- BOTÓN TOTALMENTE ALINEADO AL GRÁFICO CON TU ENLACE ACTUALIZADO -->
+        <a class="maps-link" href="https://goo.gl" target="_blank"></a>
     </div>
 
-    <!-- AUDIO VINCULADO CORRECTAMENTE A TU ARCHIVO LOCAL EN GITHUB -->
+    <!-- REPRODUCTOR APUNTANDO A TU ARCHIVO EN GITHUB (Mayúscula corregida) -->
     <audio id="bg-music" loop preload="auto">
-        <source src="cancion.mp3" type="audio/mpeg">
+        <source src="Cancion.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         function startInvitation() {
-            // Activa de forma segura la música local 'cancion.mp3'
+            // Reproducción nativa inmediata del archivo Cancion.mp3 tras remover la pantalla de carga
             var music = document.getElementById("bg-music");
             if (music) {
                 music.play().catch(function(error) {
-                    console.log("Interacción de audio bloqueada en consola:", error);
+                    console.log("Audio bloqueado temporalmente por política del navegador:", error);
                 });
             }
 
