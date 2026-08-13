@@ -98,12 +98,12 @@
     <div class="container" id="main-content">
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación">
         
-        <!-- CORRECCIÓN DEL MAPA: Enlace profundo universal para forzar la apertura de la App de Google Maps sin usar JavaScript -->
-        <a class="maps-link" href="https://google.com" target="_blank"></a>
+        <!-- CORRECCIÓN ACTUALIZADA: Enlace corto de Google Maps provisto por el usuario -->
+        <a class="maps-link" href="https://maps.app.goo.gl/LFEG2gtZdAUE9RQY7" target="_blank"></a>
     </div>
 
-    <!-- CORRECCIÓN DE AUDIO: Forzado mediante Streaming Nativo -->
-    <audio id="bg-music" loop preload="auto" crossorigin="anonymous">
+    <!-- Audio Nativo con soporte de nombres en mayúscula y minúscula -->
+    <audio id="bg-music" loop preload="auto">
         <source src="Cancion.mp3" type="audio/mpeg">
         <source src="cancion.mp3" type="audio/mpeg">
     </audio>
@@ -112,19 +112,18 @@
         function startInvitation() {
             var music = document.getElementById("bg-music");
             
-            // Lógica forzada de desbloqueo de canales de audio móviles
+            // Forzar carga limpia y arranque inmediato del audio
             music.load();
             var playPromise = music.play();
 
             if (playPromise !== undefined) {
                 playPromise.then(function() {
-                    console.log("Música iniciada");
+                    console.log("Música iniciada correctamente");
                 }).catch(function(error) {
-                    console.log("Reintentando reproducción...", error);
-                    // Segundo intento de respaldo por si el teléfono bloquea la carga directa
+                    console.log("Intento de audio bloqueado por el dispositivo. Reintentando...", error);
                     setTimeout(function(){
                         music.play();
-                    }, 100);
+                    }, 150);
                 });
             }
 
