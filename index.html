@@ -1,51 +1,214 @@
-<script>
-    // CONFIGURACIÓN DE LA FECHA DEL EVENTO: 6 de Septiembre a las 3:00 PM
-    const eventDate = new Date("September 6, 2026 15:00:00").getTime();
-
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const difference = eventDate - now;
-
-        if (difference <= 0) {
-            document.querySelector(".countdown-container").innerHTML = "<div style='color:#d27d9a; font-weight:bold; width:100%; text-align:center;'>¡Llegó el gran día! 🎉</div>";
-            return;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduación de Kenia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        body {
+            background: #fdf2f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+        /* Pantalla de bienvenida interactiva obligatoria */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fdf2f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+        #welcome-screen h1 {
+            color: #d27d9a;
+            font-size: 24px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: normal;
+        }
+        .enter-btn {
+            background: #d27d9a;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            letter-spacing: 1px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(210, 125, 154, 0.4);
+        }
+        /* Contenedor responsivo calibrado */
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 410px;
+            height: auto;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .invitation {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.15);
+            image-rendering: -webkit-optimize-contrast;
+        }
+        /* DISEÑO DE LA CUENTA REGRESIVA */
+        .countdown-container {
+            position: absolute;
+            left: 10%;
+            bottom: 28%; /* Posicionado arriba del botón de mapas */
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(210, 125, 154, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        .countdown-item {
+            text-align: center;
+            flex: 1;
+        }
+        .countdown-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #d27d9a;
+            display: block;
+        }
+        .countdown-label {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        /* Botón de Google Maps Clavado encima de tu zona rosa */
+        .maps-link {
+            position: absolute;
+            left: 15%;
+            bottom: 16.5%;
+            width: 70%;
+            height: 8.5%;
+            z-index: 999;
+            cursor: pointer;
+            border-radius: 30px;
+            background: transparent;
+            transition: background 0.3s ease;
+        }
+        .maps-link:active {
+            background: rgba(210, 125, 154, 0.1); /* Efecto visual al presionar en celular */
+        }
+        /* Ocultar por completo el reproductor de YouTube */
+        #youtube-player {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Pantalla de entrada para activar música -->
+    <div id="welcome-screen">
+        <h1>🎓 Estás invitado a la<br>Graduación de Kenia</h1>
+        <button class="enter-btn" onclick="startInvitation()">Abrir Invitación</button>
+    </div>
 
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-        document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-        document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-        document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-        document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-    }
-
-    // Ejecutar contador cada segundo
-    setInterval(updateCountdown, 1000);
-
-    function startInvitation() {
-        var music = document.getElementById("bg-music");
-        music.load();
-        var playPromise = music.play();
+    <!-- Invitación Principal -->
+    <div class="container" id="main-content">
+        <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación">
         
-        if (playPromise !== undefined) {
-            playPromise.then(function() {
-                console.log("Audio activado correctamente");
-            }).catch(function(error) {
-                console.log("Reintentando con fallback...");
-                setTimeout(function(){ music.play(); }, 200);
+        <!-- COMPONENTE DE CUENTA REGRESIVA -->
+        <div class="countdown-container">
+            <div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Días</span></div>
+            <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Horas</span></div>
+            <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Min</span></div>
+            <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Seg</span></div>
+        </div>
+
+        <!-- CORRECCIÓN DEL MAPA CON API OFICIAL DE GOOGLE MAPS -->
+        <a class="maps-link" href="https://google.com" target="_blank"></a>
+    </div>
+
+    <!-- Contenedor oculto del reproductor de YouTube -->
+    <div id="youtube-player"></div>
+
+    <script>
+        // Cargar asíncronamente la API de Iframe de YouTube
+        var tag = document.createElement('script');
+        tag.src = "https://youtube.com";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'xFrGuyw1V8s', // ID extraído de tu link de ABBA
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'xFrGuyw1V8s' // Requerido por YouTube para repetir indefinidamente
+                }
             });
         }
 
-        var welcome = document.getElementById("welcome-screen");
-        var content = document.getElementById("main-content");
-        welcome.style.opacity = "0";
-        welcome.style.visibility = "hidden";
-        content.style.opacity = "1";
-        
-        // Iniciar contador inmediatamente al abrir
-        updateCountdown();
-    }
-</script>
+        // CONFIGURACIÓN DE LA FECHA DEL EVENTO: 6 de Septiembre a las 3:00 PM (15:00 hrs)
+        const eventDate = new Date("September 6, 2026 15:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = eventDate - now;
+
+            if (difference <= 0) {
+                document.querySelector(".countdown-container").innerHTML = "<div style='color:#d27d9a; font-weight:bold; width:100%; text-align:center;'>¡Llegó el gran día! 🎉</div>";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+        }
+
+        // Ejecutar contador cada segundo
+        setInterval(updateCountdown, 1000);
+
+        function startInvitation() {
+            // Reproducir música desde YouTube de forma segura tras la interacción
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
+
+            var welcome = document.getElementById("welcome-screen");
+            var content = document.getElementById("main-content");
+            welcome.style.opacity = "0";
+            welcome.style.visibility = "hidden";
+            content.style.opacity = "1";
+            
+            // Iniciar contador inmediatamente al abrir
+            updateCountdown();
+        }
+    </script>
+</body>
+</html>
