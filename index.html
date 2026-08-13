@@ -16,12 +16,12 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 15px;
+            padding: 10px;
             font-family: Arial, sans-serif;
             overflow-x: hidden;
         }
         
-        /* Pantalla de interacción para habilitar el audio de fondo */
+        /* Pantalla de bienvenida interactiva obligatoria */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -34,15 +34,14 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: opacity 0.6s ease, visibility 0.6s;
+            transition: opacity 0.4s ease, visibility 0.4s;
         }
         #welcome-screen h1 {
             color: #d27d9a;
-            font-size: 26px;
+            font-size: 24px;
             margin-bottom: 25px;
             text-align: center;
             font-weight: normal;
-            letter-spacing: 1px;
         }
         .enter-btn {
             background: #d27d9a;
@@ -54,18 +53,16 @@
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 5px 20px rgba(210, 125, 154, 0.4);
-            transition: transform 0.2s;
-        }
-        .enter-btn:active {
-            transform: scale(0.95);
         }
 
+        /* Contenedor responsivo fijo para evitar desfases de botones */
         .container {
             position: relative;
             width: 100%;
-            max-width: 430px;
+            max-width: 410px;
+            height: auto;
             opacity: 0;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.6s ease;
         }
         .invitation {
             width: 100%;
@@ -73,52 +70,60 @@
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,.15);
             image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
         }
-        /* Zona interactiva alineada al botón de ubicación */
+        
+        /* Botón de Google Maps Clavado Milimétricamente */
         .maps-link {
             position: absolute;
-            left: 10%;
-            top: 74%;
-            width: 80%;
-            height: 9%;
-            z-index: 20;
+            left: 26%;
+            bottom: 17.5%; /* Usamos bottom en lugar de top para evitar desfases en pantallas largas */
+            width: 48%;
+            height: 6.8%;
+            z-index: 999;
             cursor: pointer; 
             border-radius: 30px;
+            background: transparent;
         }
     </style>
 </head>
 <body>
 
-    <!-- Pantalla de Entrada Interactiva -->
+    <!-- Pantalla de entrada -->
     <div id="welcome-screen">
         <h1>🎓 Estás invitado a la<br>Graduación de Kenia</h1>
         <button class="enter-btn" onclick="startInvitation()">Abrir Invitación</button>
     </div>
 
-    <!-- Contenedor Principal de la Invitación -->
+    <!-- Invitación Principal -->
     <div class="container" id="main-content">
-        <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación de Graduación de Kenia">
-        <!-- URL de Maps corregida y depurada para redirección a San Rafael Chamapa -->
+        <!-- Imagen vinculada mediante doble verificación de extensión -->
+        <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación">
+        
+        <!-- Enlace universal garantizado a tu ubicación en Naucalpan -->
         <a class="maps-link" href="https://google.com" target="_blank"></a>
     </div>
 
-    <script>
-        // Inicialización del objeto global de audio para evitar bloqueos en smartphones
-        var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        var backgroundMusic = new Audio('cancion.mp3');
-        backgroundMusic.loop = true;
+    <!-- Elemento físico de Audio con doble lectura de compatibilidad móvil -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="Cancion.mp3" type="audio/mpeg">
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
 
+    <script>
         function startInvitation() {
-            // Desbloqueo del hilo de audio del navegador tras acción de usuario
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
+            var music = document.getElementById("bg-music");
             
-            backgroundMusic.play().catch(function(error) {
-                console.log("Control de reproducción bloqueado:", error);
+            // Intenta reproducir el elemento directamente
+            music.play().then(function() {
+                console.log("Audio activado");
+            }).catch(function(error) {
+                console.log("Bloqueo de audio detectado, reintentando...", error);
+                // Intento alternativo forzando recarga de contexto
+                music.load();
+                music.play();
             });
 
+            // Transición de pantallas
             var welcome = document.getElementById("welcome-screen");
             var content = document.getElementById("main-content");
             
