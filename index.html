@@ -30,7 +30,7 @@
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,.18);
         }
-        /* Zona clicable sobre el botón del mapa */
+        /* Zona clicable interactiva sobre el botón rosa de la imagen */
         .maps-link {
             position: absolute;
             left: 25%;
@@ -38,7 +38,6 @@
             width: 50%;
             height: 7%;
             z-index: 20;
-            /* Opcional: añade un cursor de mano para notar que es un enlace */
             cursor: pointer; 
         }
         .spotify-btn {
@@ -59,15 +58,15 @@
 <body>
 
     <div class="container">
-        <!-- CORRECCIÓN: Se cambió el texto plano por la etiqueta <img> -->
-        <img class="invitation" src="invitation.jpg" alt="Invitación de Graduación de Kenia">
+        <!-- Imagen vinculada correctamente con su nombre en el servidor -->
+        <img class="invitation" src="invitacion.jpg" alt="Invitación de Graduación de Kenia">
         
-        <!-- Enlace invisible encima de la imagen -->
-        <a class="maps-link" href="https://www.google.com/maps/place/Fernando+Montes+de+Oca+17,+San+Rafael+Chamapa+Cuarta+Secc,+53680+Naucalpan+de+Ju%C3%A1rez,+M%C3%A9x./@19.4473867,-99.2754054,17z/data=!3m1!4b1!4m6!3m5!1s0x85d203f37c3e89dd:0x5ded22ce0e7215c8!8m2!3d19.4473817!4d-99.2728305!16s%2Fg%2F11cp8_425_!18m1!1e1?entry=ttu" target="_blank"></a>
+        <!-- Enlace invisible para redirección a Google Maps -->
+        <a class="maps-link" href="https://google.com" target="_blank"></a>
     </div>
 
-    <!-- Botón flotante de Spotify -->
-    <a class="spotify-btn" href="https://open.spotify.com/intl-es/track/0GjEhVFGZW8afUYGChu3Rr" target="_blank">
+    <!-- Botón flotante musical de Spotify -->
+    <a class="spotify-btn" href="https://spotify.com" target="_blank">
         🎵 Dancing Queen
     </a>
 
