@@ -98,8 +98,8 @@
     <div class="container" id="main-content">
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" alt="Invitación">
         
-        <!-- ENLACE DE API DE MAPAS: Busca la dirección física exacta de Naucalpan de forma nativa e infalible -->
-        <a class="maps-link" href="https://google.com." target="_blank"></a>
+        <!-- ENLACE EMBEBIDO DIRECTO: Burlar redirecciones mediante asignación explícita por Javascript -->
+        <a class="maps-link" href="#" id="btn-mapa-directo"></a>
     </div>
 
     <audio id="bg-music" loop preload="auto">
@@ -107,6 +107,14 @@
     </audio>
 
     <script>
+        // Capturamos el clic del botón mediante Javascript puro para obligar al navegador a ir directo al mapa
+        document.getElementById("btn-mapa-directo").addEventListener("click", function(event) {
+            event.preventDefault(); // Evitamos cualquier redirección rota nativa del navegador
+            
+            // Forzamos la apertura de la ubicación exacta del Salón en Naucalpan en una pestaña limpia
+            window.open("https://google.com.", "_blank");
+        });
+
         function startInvitation() {
             var music = document.getElementById("bg-music");
             if (music) {
