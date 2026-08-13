@@ -20,8 +20,6 @@
             font-family: Arial, sans-serif;
             overflow-x: hidden;
         }
-        
-        /* Pantalla de bienvenida elegante para activar la música de fondo */
         #welcome-screen {
             position: fixed;
             top: 0;
@@ -59,7 +57,6 @@
         .enter-btn:active {
             transform: scale(0.95);
         }
-
         .container {
             position: relative;
             width: 100%;
@@ -75,7 +72,6 @@
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
         }
-        /* Zona interactiva calibrada exactamente sobre tu botón rosa de Maps */
         .maps-link {
             position: absolute;
             left: 26%;
@@ -90,40 +86,32 @@
 </head>
 <body>
 
-    <!-- Pantalla obligatoria de entrada -->
     <div id="welcome-screen">
         <h1>🎓 Estás invitado a la<br>Graduación de Kenia</h1>
         <button class="enter-btn" onclick="startInvitation()">Abrir Invitación</button>
     </div>
 
-    <!-- Contenedor de la Invitación -->
     <div class="container" id="main-content">
-        <!-- Sistema dual para forzar la carga sin importar mayúsculas o minúsculas en el servidor -->
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación de Graduación de Kenia">
         <a class="maps-link" href="https://google.com" target="_blank"></a>
     </div>
 
-    <!-- Audio Nativo para Reproducción Automática en la Web -->
     <audio id="bg-music" src="cancion.mp3" loop></audio>
 
     <script>
         function startInvitation() {
-            // Activa el audio de forma inmediata tras el clic del usuario
             var music = document.getElementById("bg-music");
             music.play().catch(function(error) {
-                console.log("Audio bloqueado por el navegador:", error);
+                console.log("Audio bloqueado:", error);
             });
-
-            // Desvanece la bienvenida y muestra la tarjeta
             var welcome = document.getElementById("welcome-screen");
             var content = document.getElementById("main-content");
-            
             welcome.style.opacity = "0";
             welcome.style.visibility = "hidden";
-            
             content.style.opacity = "1";
         }
     </script>
 
 </body>
 </html>
+
