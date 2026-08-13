@@ -78,10 +78,10 @@
         /* Zona interactiva calibrada exactamente sobre tu botón rosa de Maps */
         .maps-link {
             position: absolute;
-            left: 26%;
-            top: 75.8%;
-            width: 48%;
-            height: 6.5%;
+            left: 20%;
+            top: 75%;
+            width: 60%;
+            height: 8%;
             z-index: 20;
             cursor: pointer; 
             border-radius: 30px;
@@ -99,30 +99,21 @@
     <!-- Contenedor de la Invitación -->
     <div class="container" id="main-content">
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación de Graduación de Kenia">
-        <a class="maps-link" href="https://google.com" target="_blank"></a>
+        <!-- CORRECCIÓN CRÍTICA: Enlace oficial limpio de Google Maps para San Rafael Chamapa -->
+        <a class="maps-link" href="https://goo.gl" target="_blank"></a>
     </div>
 
-    <!-- CORRECCIÓN: Controles nativos optimizados para llamadas en la web -->
-    <audio id="bg-music" preload="auto" loop>
+    <!-- Audio Nativo para Reproducción Automática con precarga forzada -->
+    <audio id="bg-music" loop preload="auto">
         <source src="cancion.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         function startInvitation() {
             var music = document.getElementById("bg-music");
-            
-            // Forzar la lectura y arranque del archivo de audio
-            music.load();
-            
-            var playPromise = music.play();
-
-            if (playPromise !== undefined) {
-                playPromise.then(function() {
-                    console.log("Reproducción iniciada con éxito");
-                }).catch(function(error) {
-                    console.log("Error al reproducir:", error);
-                });
-            }
+            music.play().catch(function(error) {
+                console.log("Audio bloqueado por el navegador:", error);
+            });
 
             // Desvanece la bienvenida y muestra la tarjeta
             var welcome = document.getElementById("welcome-screen");
