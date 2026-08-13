@@ -69,37 +69,26 @@
             box-shadow: 0 10px 30px rgba(0,0,0,.15);
             image-rendering: -webkit-optimize-contrast;
         }
-        /* DISEÑO DE LA CUENTA REGRESIVA */
-        .countdown-container {
+        /* CAJA CON LA INFO DE LA FECHA FIJA */
+        .date-box-container {
             position: absolute;
             left: 10%;
-            bottom: 28%;
+            bottom: 28%; /* Ubicado exactamente en la misma posición de la cuenta regresiva anterior */
             width: 80%;
-            display: flex;
-            justify-content: space-around;
             background: rgba(255, 255, 255, 0.85);
-            padding: 10px;
+            padding: 12px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(210, 125, 154, 0.2);
             backdrop-filter: blur(5px);
-        }
-        .countdown-item {
             text-align: center;
-            flex: 1;
         }
-        .countdown-number {
-            font-size: 20px;
+        .date-text-main {
+            font-size: 16px;
             font-weight: bold;
             color: #d27d9a;
-            display: block;
+            letter-spacing: 0.5px;
         }
-        .countdown-label {
-            font-size: 10px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        /* Botón de Google Maps */
+        /* Botón de Google Maps Clavado encima de tu zona rosa */
         .maps-link {
             position: absolute;
             left: 15%;
@@ -110,10 +99,6 @@
             cursor: pointer;
             border-radius: 30px;
             background: transparent;
-            transition: background 0.3s ease;
-        }
-        .maps-link:active {
-            background: rgba(210, 125, 154, 0.1);
         }
     </style>
 </head>
@@ -128,61 +113,27 @@
     <div class="container" id="main-content">
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación">
         
-        <!-- COMPONENTE DE CUENTA REGRESIVA -->
-        <div class="countdown-container">
-            <div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Días</span></div>
-            <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Horas</span></div>
-            <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Min</span></div>
-            <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Seg</span></div>
+        <!-- VISUALIZACIÓN FIJA DE LA FECHA -->
+        <div class="date-box-container">
+            <div class="date-text-main">📅 6 de Septiembre — 3:00 PM</div>
         </div>
 
-        <!-- ENLACE DE MAPAS -->
-        <a class="maps-link" href="https://google.com" target="_blank"></a>
+        <!-- EL BOTÓN CON TU ENLACE DE MAPAS ACTUALIZADO -->
+        <a class="maps-link" href="https://maps.app.goo.gl/XDd63DqmPNoqmbWw5" target="_blank"></a>
     </div>
 
-    <!-- AUDIO CON RUTA LOCAL Y OPCIÓN DE RESPALDO EXTERNO -->
+    <!-- AUDIO VINCULADO CORRECTAMENTE A TU ARCHIVO LOCAL EN GITHUB -->
     <audio id="bg-music" loop preload="auto">
-        <!-- Opción 1: Tu archivo local en GitHub -->
         <source src="cancion.mp3" type="audio/mpeg">
-        <!-- Opción 2 (Alternativa): Reemplaza el enlace de abajo con un link directo de un MP3 alojado en la nube si el local falla -->
-        <!-- <source src="https://tu-enlace-externo.com/cancion.mp3" type="audio/mpeg"> -->
-        Tu navegador no soporta el elemento de audio.
     </audio>
 
     <script>
-        const eventDate = new Date("September 6, 2026 15:00:00").getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const difference = eventDate - now;
-
-            if (difference <= 0) {
-                document.querySelector(".countdown-container").innerHTML = "<div style='color:#d27d9a; font-weight:bold; width:100%; text-align:center;'>¡Llegó el gran día! 🎉</div>";
-                return;
-            }
-
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-        }
-
-        setInterval(updateCountdown, 1000);
-
         function startInvitation() {
+            // Activa de forma segura la música local 'cancion.mp3' guardada en tu repositorio
             var music = document.getElementById("bg-music");
-            
             if (music) {
-                music.play().then(function() {
-                    console.log("Audio reproduciéndose correctamente.");
-                }).catch(function(error) {
-                    console.log("Error al reproducir audio:", error);
-                    alert("Por favor, asegúrate de que el archivo 'cancion.mp3' está en la misma carpeta que este HTML en GitHub.");
+                music.play().catch(function(error) {
+                    console.log("Interacción de audio bloqueada en consola:", error);
                 });
             }
 
@@ -191,8 +142,6 @@
             welcome.style.opacity = "0";
             welcome.style.visibility = "hidden";
             content.style.opacity = "1";
-            
-            updateCountdown();
         }
     </script>
 </body>
