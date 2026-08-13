@@ -3,228 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graduación de Kenia</title>
+    <title>Invitación de Graduación</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Estilos básicos para centrar el contenido */
         body {
-            background: #fdf2f7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 10px;
             font-family: Arial, sans-serif;
-            overflow-x: hidden;
-        }
-        /* Pantalla de bienvenida interactiva obligatoria */
-        #welcome-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #fdf2f7;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.4s ease, visibility 0.4s;
-        }
-        #welcome-screen h1 {
-            color: #d27d9a;
-            font-size: 24px;
-            margin-bottom: 25px;
             text-align: center;
-            font-weight: normal;
+            background-color: #f4f4f4;
+            padding: 50px;
         }
-        .enter-btn {
-            background: #d27d9a;
+        .btn-ubicacion {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007bff;
             color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 18px;
-            letter-spacing: 1px;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(210, 125, 154, 0.4);
-        }
-        /* Contenedor responsivo calibrado */
-        .container {
-            position: relative;
-            width: 100%;
-            max-width: 410px;
-            height: auto;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-        .invitation {
-            width: 100%;
-            display: block;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.15);
-            image-rendering: -webkit-optimize-contrast;
-        }
-        /* DISEÑO DE LA CUENTA REGRESIVA */
-        .countdown-container {
-            position: absolute;
-            left: 10%;
-            bottom: 28%;
-            width: 80%;
-            display: flex;
-            justify-content: space-around;
-            background: rgba(255, 255, 255, 0.85);
-            padding: 10px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(210, 125, 154, 0.2);
-            backdrop-filter: blur(5px);
-        }
-        .countdown-item {
-            text-align: center;
-            flex: 1;
-        }
-        .countdown-number {
-            font-size: 20px;
+            text-decoration: none;
+            border-radius: 5px;
             font-weight: bold;
-            color: #d27d9a;
-            display: block;
-        }
-        .countdown-label {
-            font-size: 10px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        /* Botón de Google Maps Clavado encima de tu zona rosa */
-        .maps-link {
-            position: absolute;
-            left: 15%;
-            bottom: 16.5%;
-            width: 70%;
-            height: 8.5%;
-            z-index: 999;
-            cursor: pointer;
-            border-radius: 30px;
-            background: transparent;
-        }
-        /* Mini contenedor técnico para burlar restricciones visuales de YouTube en móviles */
-        .audio-sandbox {
-            position: absolute;
-            top: -100px;
-            left: -100px;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            opacity: 0.01;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <!-- Pantalla de entrada para activar música -->
-    <div id="welcome-screen">
-        <h1>🎓 Estás invitado a la<br>Graduación de Kenia</h1>
-        <button class="enter-btn" onclick="startInvitation()">Abrir Invitación</button>
-    </div>
 
-    <!-- Invitación Principal -->
-    <div class="container" id="main-content">
-        <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación">
-        
-        <!-- COMPONENTE DE CUENTA REGRESIVA -->
-        <div class="countdown-container">
-            <div class="countdown-item"><span class="countdown-number" id="days">00</span><span class="countdown-label">Días</span></div>
-            <div class="countdown-item"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Horas</span></div>
-            <div class="countdown-item"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Min</span></div>
-            <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Seg</span></div>
-        </div>
+    <!-- 1. TEXTO DE LA FECHA (Sin cuenta regresiva) -->
+    <h1>¡Estás invitado a mi Graduación!</h1>
+    <h2>Fecha: 6 de Septiembre a las 3:00 PM</h2>
 
-        <!-- BOTÓN CON PROTOCOLO GEOLOCALIZADO (Fuerza la apertura de Apps en iOS/Android) -->
-        <a class="maps-link" href="geo:19.4473817,-99.2728305?q=19.4473817,-99.2728305(Graduacion+Kenia+Naucalpan)"></a>
-    </div>
+    <!-- 2. BOTÓN DE UBICACIÓN -->
+    <a href="https://maps.app.goo.gl/QYtM18vEe3tZfYHWA" target="_blank" class="btn-ubicacion">
+        Ver Ubicación
+    </a>
 
-    <!-- Forzado de renderizado del Iframe de YouTube -->
-    <div class="audio-sandbox">
-        <div id="youtube-player"></div>
-    </div>
+    <!-- 3. MÚSICA DE FONDO (YouTube) -->
+    <!-- El reproductor es invisible (width:0, height:0) y tiene activación automática -->
+    <iframe width="0" height="0" 
+            src="https://youtube.com" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+    </iframe>
 
-    <script>
-        // Inyección asíncrona de la API oficial de YouTube
-        var tag = document.createElement('script');
-        tag.src = "https://youtube.com";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '10',
-                width: '10',
-                videoId: 'xFrGuyw1V8s',
-                playerVars: {
-                    'autoplay': 0,
-                    'loop': 1,
-                    'playlist': 'xFrGuyw1V8s',
-                    'controls': 0,
-                    'showinfo': 0,
-                    'rel': 0,
-                    'playsinline': 1 // Requerido para que suene en segundo plano en iOS y Chrome móvil
-                },
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            // Se pre-configura silenciado de fondo para burlar el bloqueo de reproducción automática agresivo de Android
-            event.target.mute(); 
-        }
-
-        // CONFIGURACIÓN DE LA FECHA DEL EVENTO: 6 de Septiembre a las 3:00 PM (15:00 hrs)
-        const eventDate = new Date("September 6, 2026 15:00:00").getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const difference = eventDate - now;
-
-            if (difference <= 0) {
-                document.querySelector(".countdown-container").innerHTML = "<div style='color:#d27d9a; font-weight:bold; width:100%; text-align:center;'>¡Llegó el gran día! 🎉</div>";
-                return;
-            }
-
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-        }
-
-        setInterval(updateCountdown, 1000);
-
-        function startInvitation() {
-            // Acción tras interacción del usuario: Quita el mute y fuerza el Play con volumen activo
-            if (player && typeof player.playVideo === 'function') {
-                player.unMute();
-                player.setVolume(100);
-                player.playVideo();
-            }
-
-            var welcome = document.getElementById("welcome-screen");
-            var content = document.getElementById("main-content");
-            welcome.style.opacity = "0";
-            welcome.style.visibility = "hidden";
-            content.style.opacity = "1";
-            
-            updateCountdown();
-        }
-    </script>
 </body>
 </html>
