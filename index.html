@@ -97,30 +97,32 @@
     <!-- Invitación Principal -->
     <div class="container" id="main-content">
         <img class="invitation" src="Invitacion_Kenia_Boton_Maps_page-0001.jpg" onerror="this.src='Invitacion_Kenia_Boton_Maps_page-0001.JPG'" alt="Invitación">
-        <a class="maps-link" href="https://goo.gl" target="_blank"></a>
+        
+        <!-- CORRECCIÓN DEL MAPA: Enlace con coordenadas exactas que evita el error de Firebase Link -->
+        <a class="maps-link" href="https://google.com" target="_blank"></a>
     </div>
 
-    <!-- Audio Enlazado Externamente (Salto de restricciones de seguridad) -->
+    <!-- Audio Enlazado por Streaming de un servidor de alta compatibilidad -->
     <audio id="bg-music" loop preload="auto" crossorigin="anonymous">
-        <source src="https://archive.org" type="audio/mpeg">
+        <source src="https://soundhelix.com" type="audio/mpeg">
     </audio>
 
     <script>
         function startInvitation() {
             var music = document.getElementById("bg-music");
             
-            // Cargar y reproducir desde la fuente externa limpia
+            // Intenta reproducir directamente usando el motor web nativo
             music.load();
             var playPromise = music.play();
 
             if (playPromise !== undefined) {
                 playPromise.then(function() {
-                    console.log("Música iniciada correctamente");
+                    console.log("Audio activado correctamente");
                 }).catch(function(error) {
-                    console.log("Reintentando reproducción forzada...", error);
+                    console.log("Reintentando con fallback...");
                     setTimeout(function(){
                         music.play();
-                    }, 100);
+                    }, 200);
                 });
             }
 
