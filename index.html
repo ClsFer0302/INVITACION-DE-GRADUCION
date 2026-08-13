@@ -73,7 +73,7 @@
         .countdown-container {
             position: absolute;
             left: 10%;
-            bottom: 28%; /* Posicionado arriba del botón de mapas */
+            bottom: 28%;
             width: 80%;
             display: flex;
             justify-content: space-around;
@@ -110,14 +110,16 @@
             cursor: pointer;
             border-radius: 30px;
             background: transparent;
-            transition: background 0.3s ease;
         }
-        .maps-link:active {
-            background: rgba(210, 125, 154, 0.1); /* Efecto visual al presionar en celular */
-        }
-        /* Ocultar por completo el reproductor de YouTube */
-        #youtube-player {
-            display: none;
+        /* Mini contenedor técnico para burlar restricciones visuales de YouTube en móviles */
+        .audio-sandbox {
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            opacity: 0.01;
         }
     </style>
 </head>
@@ -140,15 +142,17 @@
             <div class="countdown-item"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Seg</span></div>
         </div>
 
-        <!-- CORRECCIÓN DEL MAPA CON API OFICIAL DE GOOGLE MAPS -->
-        <a class="maps-link" href="https://google.com" target="_blank"></a>
+        <!-- BOTÓN CON PROTOCOLO GEOLOCALIZADO (Fuerza la apertura de Apps en iOS/Android) -->
+        <a class="maps-link" href="geo:19.4473817,-99.2728305?q=19.4473817,-99.2728305(Graduacion+Kenia+Naucalpan)"></a>
     </div>
 
-    <!-- Contenedor oculto del reproductor de YouTube -->
-    <div id="youtube-player"></div>
+    <!-- Forzado de renderizado del Iframe de YouTube -->
+    <div class="audio-sandbox">
+        <div id="youtube-player"></div>
+    </div>
 
     <script>
-        // Cargar asíncronamente la API de Iframe de YouTube
+        // Inyección asíncrona de la API oficial de YouTube
         var tag = document.createElement('script');
         tag.src = "https://youtube.com";
         var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -157,15 +161,27 @@
         var player;
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
-                videoId: 'xFrGuyw1V8s', // ID extraído de tu link de ABBA
+                height: '10',
+                width: '10',
+                videoId: 'xFrGuyw1V8s',
                 playerVars: {
                     'autoplay': 0,
                     'loop': 1,
-                    'playlist': 'xFrGuyw1V8s' // Requerido por YouTube para repetir indefinidamente
+                    'playlist': 'xFrGuyw1V8s',
+                    'controls': 0,
+                    'showinfo': 0,
+                    'rel': 0,
+                    'playsinline': 1 // Requerido para que suene en segundo plano en iOS y Chrome móvil
+                },
+                events: {
+                    'onReady': onPlayerReady
                 }
             });
+        }
+
+        function onPlayerReady(event) {
+            // Se pre-configura silenciado de fondo para burlar el bloqueo de reproducción automática agresivo de Android
+            event.target.mute(); 
         }
 
         // CONFIGURACIÓN DE LA FECHA DEL EVENTO: 6 de Septiembre a las 3:00 PM (15:00 hrs)
@@ -191,12 +207,13 @@
             document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
         }
 
-        // Ejecutar contador cada segundo
         setInterval(updateCountdown, 1000);
 
         function startInvitation() {
-            // Reproducir música desde YouTube de forma segura tras la interacción
+            // Acción tras interacción del usuario: Quita el mute y fuerza el Play con volumen activo
             if (player && typeof player.playVideo === 'function') {
+                player.unMute();
+                player.setVolume(100);
                 player.playVideo();
             }
 
@@ -206,7 +223,6 @@
             welcome.style.visibility = "hidden";
             content.style.opacity = "1";
             
-            // Iniciar contador inmediatamente al abrir
             updateCountdown();
         }
     </script>
